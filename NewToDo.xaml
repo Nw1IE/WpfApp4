@@ -6,6 +6,23 @@
         xmlns:local="clr-namespace:WpfApp4"
         mc:Ignorable="d"
         Title="NewToDo" Height="450" Width="400">
+    <Window.Resources>
+        <Style x:Key="TextStyle">
+            <Setter Property="Control.FontFamily" Value="Calibri"></Setter>
+            <Setter Property="Control.FontSize" Value="35"></Setter>
+            <Setter Property="Control.FontWeight" Value="Bold"></Setter>
+            <Setter Property="Control.Padding" Value="5"></Setter>
+            <Setter Property="Control.Margin" Value="5"></Setter>
+            <Setter Property="Control.Background" Value="#5EBEC4"></Setter>
+            <Setter Property="Control.Foreground" Value="#5EBEC4"></Setter>
+
+        </Style>
+
+        
+             
+        
+    </Window.Resources>
+    
     <Grid Background="#FFFDFAF1">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.15*"/>
@@ -16,8 +33,8 @@
         <StackPanel Grid.Column="0"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Center">
-            <TextBlock Text="Новое дело"
-                FontSize="26"/>
+            <TextBlock Style="{StaticResource TextStyle}" Foreground="#5EBEC4">Новое дело</TextBlock>
+          
         </StackPanel>
 
         <GroupBox Grid.Column="0"
@@ -31,13 +48,14 @@
 
                 <StackPanel>
                     <TextBlock Text="Навзвание:" Margin="5"/>
-                    <TextBox Margin="5" Name="titleToDo"/>
+                    <TextBox Margin="5" Name="titleToDo"   BorderBrush="#5EBEC4" />
                 </StackPanel>
 
                 <StackPanel>
                     <TextBlock Text="Выполнить до:" Margin="5"/>
-                    <DatePicker IsDropDownOpen="True" Margin="5"
-                             Name="dateToDo"/>
+                    <DatePicker IsDropDownOpen="True" Margin="5"  BorderBrush="#5EBEC4"
+                             Name="dateToDo" />
+                    
                 </StackPanel>
 
                 <StackPanel>

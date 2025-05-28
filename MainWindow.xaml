@@ -6,6 +6,19 @@
         xmlns:local="clr-namespace:WpfApp4"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="400">
+
+    <Window.Resources>
+        <Style x:Key="TextStyle">
+            <Setter Property="Control.FontFamily" Value="Calibri"></Setter>
+            <Setter Property="Control.FontSize" Value="35"></Setter>
+            <Setter Property="Control.FontWeight" Value="Bold"></Setter>
+            <Setter Property="Control.Padding" Value="5"></Setter>
+            <Setter Property="Control.Margin" Value="5"></Setter>
+            <Setter Property="Control.Background" Value="#5EBEC4"></Setter>
+            <Setter Property="Control.Foreground" Value="#5EBEC4"></Setter>
+            <Setter Property="Control.BorderBrush" Value="#5EBEC4"></Setter>
+        </Style>
+    </Window.Resources>
     <Grid Background="#FFFDFAF1">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.15*"/>
@@ -13,12 +26,14 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0"
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Grid.ColumnSpan="2">
-            <TextBlock Text="Список дел"
-       FontSize="26"/>
+            <TextBlock Style="{StaticResource TextStyle}" Foreground="#5EBEC4">Список дел</TextBlock>
+
         </StackPanel>
+        
+  
 
 
         <DataGrid Grid.Column="0" Grid.Row="1" 
@@ -30,10 +45,11 @@
                 <DataGridCheckBoxColumn Width="0.1*"/>
 
                 <DataGridTextColumn Binding="{Binding Path=Name}"
-                                    Width="*" IsReadOnly="True"/>
-
-                <DataGridTextColumn Binding="{Binding Path=Date, StringFormat=dd.MM.yyyy}"
-                                    Width="0.5*" IsReadOnly="True"/>
+                                    Width="*" IsReadOnly="True"
+                                 />
+            
+                <DataGridTextColumn Binding="{Binding Path=Date, StringFormat=dd.MM.yyyy }"
+                                    Width="0.5*" IsReadOnly="True" />
 
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
@@ -55,8 +71,8 @@
                 <DataTemplate>
   
                     <StackPanel>
-                        
-                        <TextBox  Text="{Binding Path=Description}" MaxHeight="60px"  VerticalScrollBarVisibility="Auto"/>
+
+                        <TextBox  Text="{Binding Path=Description}" MaxHeight="60px"  VerticalScrollBarVisibility="Auto"  BorderBrush="#5EBEC4"/>
                        
                     </StackPanel>
 
