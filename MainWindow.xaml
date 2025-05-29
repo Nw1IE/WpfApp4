@@ -18,11 +18,17 @@
             <Setter Property="Control.Foreground" Value="#5EBEC4"></Setter>
             <Setter Property="Control.BorderBrush" Value="#5EBEC4"></Setter>
         </Style>
+        <Style x:Key="Progessar" TargetType="ProgressBar">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Foreground" Value="#5EBEC4"/>
+            <Setter Property="Background" Value="#FDF5DF"/>
+        </Style>
     </Window.Resources>
     <Grid Background="#FFFDFAF1">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.15*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="0.10*"/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0"
@@ -32,13 +38,22 @@
             <TextBlock Style="{StaticResource TextStyle}" Foreground="#5EBEC4">Список дел</TextBlock>
 
         </StackPanel>
+
+        <DataGrid Grid.Row="2" Margin="10,10,10,10">
+            <ProgressBar Name="Progress" Style="{StaticResource Progessar}" IsIndeterminate="False" Value="2">  </ProgressBar>
+        </DataGrid>
+
+        <TextBlock Grid.Row="2"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Name="CounterText"/>
         
-  
+        <TextBlock Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="0/4" Name="number"/>
 
 
         <DataGrid Grid.Column="0" Grid.Row="1" 
-                  Background="#FDF5DF" Margin="5" Name="ToDolist"
-                  Grid.ColumnSpan="2"
+                  Background="#FDF5DF" Margin="5,5,5,10" Name="ToDolist"
                   AutoGenerateColumns="False"
                   HeadersVisibility="None">
             <DataGrid.Columns>
@@ -47,7 +62,7 @@
                 <DataGridTextColumn Binding="{Binding Path=Name}"
                                     Width="*" IsReadOnly="True"
                                  />
-            
+
                 <DataGridTextColumn Binding="{Binding Path=Date, StringFormat=dd.MM.yyyy }"
                                     Width="0.5*" IsReadOnly="True" />
 
@@ -69,11 +84,11 @@
 
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
-  
+
                     <StackPanel>
 
                         <TextBox  Text="{Binding Path=Description}" MaxHeight="60px"  VerticalScrollBarVisibility="Auto"  BorderBrush="#5EBEC4"/>
-                       
+
                     </StackPanel>
 
                 </DataTemplate>
