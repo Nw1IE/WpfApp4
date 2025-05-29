@@ -32,9 +32,39 @@ namespace WpfApp4
         public MainWindow()
         {
             InitializeComponent();
+           
 
+            ToDoList.CollectionChanged += (s, e) => UpdateCounters();
+            UpdateCounters();
         }
 
+        private void Boxe_Cheacked(object sender, RoutedEventArgs e)
+        {
+            if (ToDolist.SelectedItem != null)
+            {
+                UpdateCounters();
+            }
+        }
+           
+
+        private void Boxe_UnChecked(object sender, RoutedEventArgs e)
+        {
+            UpdateCounters();
+        }
+
+        private void UpdateCounters()
+        {
+            CounterrText.Text = $"{ToDoList.Count}/{ToDoList.Count(t => t.Doing)}";
+            Progress.Maximum = ToDoList.Count;
+            Progress.Value = ToDoList.Count(t => t.Doing);
+        }
+
+        private void CreateToDo(object sender, RoutedEventArgs e)
+        {
+            var AddToDo = new NewToDo();
+            AddToDo.Show();
+            AddToDo.Owner = this;
+        }
 
         private void btnAdd(object sender, RoutedEventArgs e)
         {
@@ -60,17 +90,7 @@ namespace WpfApp4
             }
         }
 
-        private void UpdateCounters()
-        {
-            CounterText.Text = $"{ToDoList.Count}/{ToDoList.Count(t => t.Doing)}";
-            Progress.Maximum = ToDoList.Count;
-            Progress.Value = ToDoList.Count(t => t.Doing);
-        }
-
-        private void EndToDo(object sender, RoutedEventArgs e)
-        {
-          
-        }
+       
 
         public class ToDo
         {

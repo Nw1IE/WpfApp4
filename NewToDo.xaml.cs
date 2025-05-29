@@ -30,20 +30,19 @@ namespace WpfApp4
 
         private void ToDoSave(object sender, RoutedEventArgs e)
         {
-            if (dateToDo.SelectedDate == null)
+            if (!dateToDo.SelectedDate.HasValue)
             {
-                MessageBox.Show("Выберите дату!");
-                return;
+                dateToDo.SelectedDate = DateTime.Now;
             }
-            var main = (MainWindow)Owner;
+            var mainWindow = (MainWindow)Owner;
 
-            var temp = dateToDo.SelectedDate.Value;
-            main.todo.Add(new ToDo(titleToDo.Text, temp, descriptionToDo.Text));
-
-            main.ToDolist.ItemsSource = null;
-            main.ToDolist.ItemsSource = main.todo;
-
-            Hide();
+            mainWindow.ToDoList.Add(new ToDo(titleToDo.Text,
+                                    new DateTime(dateToDo.SelectedDate.Value.Year,
+                                                dateToDo.SelectedDate.Value.Month,
+                                                dateToDo.SelectedDate.Value.Day),
+                                    descriptionToDo.Text));
+            this.Close();
+           
         }
     }
 }
