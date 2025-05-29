@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace WpfApp4
 {
@@ -38,16 +39,16 @@ namespace WpfApp4
             UpdateCounters();
         }
 
-        private void Boxe_Cheacked(object sender, RoutedEventArgs e)
+        private void CheckBox_Cheked(object sender, RoutedEventArgs e)
         {
-            if (ToDolist.SelectedItem != null)
+            if (listToDo.SelectedItem != null)
             {
                 UpdateCounters();
             }
         }
            
 
-        private void Boxe_UnChecked(object sender, RoutedEventArgs e)
+        private void CheckBox_Uncheked(object sender, RoutedEventArgs e)
         {
             UpdateCounters();
         }
@@ -74,19 +75,27 @@ namespace WpfApp4
 
         }
 
+        private void DeleteToDo(object sender, RoutedEventArgs e)
+        {
+            if (listToDo.SelectedItem as ToDo == null) { return; }
+            else
+            {
+                ToDoList.Remove(listToDo.SelectedItem as ToDo);
+            }
+        }
 
         private void btnDelete(object sender, RoutedEventArgs e)
         {
-            if (ToDolist.SelectedItem as ToDo == null)
+            if (listToDo.SelectedItem as ToDo == null)
             {
                 return;
             }
             else
             {
-                todo.Remove((ToDo)ToDolist.SelectedItem);
+                todo.Remove((ToDo)listToDo.SelectedItem);
 
-                ToDolist.ItemsSource = null;
-                ToDolist.ItemsSource = todo;
+                listToDo.ItemsSource = null;
+                listToDo.ItemsSource = todo;
             }
         }
 

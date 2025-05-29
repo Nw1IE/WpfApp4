@@ -23,6 +23,24 @@
             <Setter Property="Foreground" Value="#5EBEC4"/>
             <Setter Property="Background" Value="#FDF5DF"/>
         </Style>
+        <Style x:Key="DataGridButton" TargetType="Button">
+            <Setter Property="Background" Value="#5EBEC4"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="DataGridList" TargetType="DataGrid">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="#FDF5DF"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="HeadersVisibility" Value="None"/>
+            <Setter Property="AlternatingRowBackground" Value="#fffdfaf1"/>
+            <Setter Property="RowBackground" Value="White"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#5EBEC4"/>
+        </Style>
+        <Style x:Key="DeleteButton" TargetType="Image">
+            <Setter Property="Margin" Value="3"/>
+        </Style>
+
     </Window.Resources>
     <Grid Background="#FFFDFAF1">
         <Grid.RowDefinitions>
@@ -59,68 +77,52 @@
         <TextBlock Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"  Name="number"/>
 
 
-        <DataGrid Grid.Column="0" Grid.Row="1" 
-                  Background="#FDF5DF" Margin="5,5,5,10" Name="ToDolist"
-                  AutoGenerateColumns="False"
-                  HeadersVisibility="None">
-          
+        <DataGrid Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Name="listToDo"
+            Style="{StaticResource DataGridList}">
+
+
+
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn Width="0.1*"/>
-
-                <DataGridTextColumn Binding="{Binding Path=Name}"
-                                    Width="*" IsReadOnly="True"
-                                 />
-
-                <DataGridTextColumn Binding="{Binding Path=Date, StringFormat=dd.MM.yyyy }"
-                                    Width="0.5*" IsReadOnly="True" />
-
+                <DataGridTemplateColumn Width="0.1*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox Checked="CheckBox_Cheked"
+                                      Unchecked="CheckBox_Uncheked"
+                                IsThreeState="False"
+                                IsChecked="{Binding Doing, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding Path=Name}" 
+                              Width="*" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Path=Date, StringFormat=dd.MM.yyyy}"
+                              Width="0.5*" IsReadOnly="True"/>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-
-                            <Button  Content="X"
-                                    Background="#5EBEC4"
-                                    Click="btnDelete"
-                                    VerticalContentAlignment="Center">
-
-                                <!--<Image Source="/delete.png" Width="10" Height="10"/>-->
+                            <Button Click="DeleteToDo"
+         Style="{StaticResource DataGridButton}">
+                                <Image Source="/Assets/delete.png"
+            Style="{StaticResource DeleteButton}"/>
                             </Button>
-
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-
-            <DataGridTemplateColumn>
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate>
-
-                        <CheckBox Checked="Boxe_Cheacked"
-                                 Unchecked="Boxe_UnChecked"
-                                 IsThreeState="False"
-                                 IsChecked="{Binding Doing, UpdateSourceTrigger=PropertyChanged}"/>
-
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
-          
-
-
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
-
-                    <StackPanel>
-
-                        <TextBox  Text="{Binding Path=Description}" MaxHeight="60px"  VerticalScrollBarVisibility="Auto"  BorderBrush="#5EBEC4"/>
-
-                    </StackPanel>
-
+                    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                            MaxHeight="50">
+                        <TextBlock Text="{Binding Path=Description}"/>
+                    </ScrollViewer>
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
-
         </DataGrid>
-    
-        
+
+
+
 
         <StackPanel Grid.Column="1" Grid.Row="0"
             HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10">
